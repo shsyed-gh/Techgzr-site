@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | TechGzr Private Limited</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:60px;margin-top:70px;align-items:start;}
+.contact-info h3{font-size:22px;font-weight:700;margin-bottom:8px;}
+.contact-info p{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:36px;font-weight:300;}
+.info-items{display:flex;flex-direction:column;gap:20px;}
+.info-item{display:flex;gap:16px;align-items:flex-start;}
+.info-icon{width:44px;height:44px;background:rgba(255,92,26,0.1);border:1px solid rgba(255,92,26,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.info-text h5{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+.info-text p{font-size:15px;color:var(--text);}
+.contact-form{background:var(--dark3);border:1px solid var(--border);border-radius:20px;padding:44px;}
+.contact-form h3{font-size:22px;font-weight:700;margin-bottom:6px;}
+.contact-form p{font-size:14px;color:var(--muted);margin-bottom:28px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form-group{margin-bottom:16px;}
+.form-group label{display:block;font-size:13px;font-weight:500;color:var(--muted);margin-bottom:6px;letter-spacing:0.3px;}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:var(--dark2);border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;outline:none;transition:border-color 0.2s;resize:none;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:rgba(255,92,26,0.5);}
+.form-group select option{background:var(--dark3);}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--muted);}
+.success-msg{display:none;background:rgba(0,200,100,0.1);border:1px solid rgba(0,200,100,0.2);border-radius:8px;padding:14px 18px;font-size:14px;color:#4ade80;margin-top:16px;}
+.map-section{background:var(--dark2);}
+.map-mock{background:var(--dark3);border:1px solid var(--border);border-radius:16px;height:300px;display:flex;align-items:center;justify-content:center;margin-top:40px;position:relative;overflow:hidden;}
+.map-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:30px 30px;}
+.map-pin{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;z-index:1;}
+.map-pin .pin{font-size:36px;filter:drop-shadow(0 4px 20px rgba(255,92,26,0.5));}
+.map-pin p{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--text);margin-top:8px;}
+.map-pin span{font-size:12px;color:var(--muted);}
+@media(max-width:900px){.contact-grid,.form-row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <img src="C:\Users\Dell\Downloads\techgzr\files\tehgzr...png" alt="Description of image" style="height: 50px; width: 80px;">
+  
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="training.html">Training</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+  <a href="#contact-form" class="nav-cta">Send Message</a>
+</nav>
+
+<div class="page-hero" style="background:var(--dark);">
+  <div class="page-hero-bg"></div><div class="page-hero-orb"></div>
+  <div class="container">
+    <div class="section-label">Get In Touch</div>
+    <h1>Let's Build<br><span style="color:var(--orange)">Something Great</span></h1>
+    <p>Have a project in mind? Questions about training? Just want to say hello? We'd love to hear from you.</p>
+  </div>
+</div>
+
+<section style="background:var(--dark);" id="contact-form">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>We're here to help</h3>
+        <p>Reach out through any channel below. We typically respond within a few hours during business hours (Mon–Sat, 9am–6pm PKT).</p>
+        <div class="info-items">
+          <div class="info-item reveal"><div class="info-icon">📧</div><div class="info-text"><h5>Email</h5><p id="ci-email"></p></div></div>
+          <div class="info-item reveal"><div class="info-icon">📞</div><div class="info-text"><h5>Phone / WhatsApp</h5><p id="ci-phone"></p></div></div>
+          <div class="info-item reveal"><div class="info-icon">📍</div><div class="info-text"><h5>Office</h5><p id="ci-address"></p></div></div>
+          <div class="info-item reveal"><div class="info-icon">🕐</div><div class="info-text"><h5>Business Hours</h5><p>Monday – Saturday, 9am – 6pm PKT</p></div></div>
+        </div>
+      </div>
+      <div class="contact-form reveal">
+        <h3>Send Us a Message</h3>
+        <p>Tell us about your project and we'll get back to you with a plan.</p>
+        <div class="form-row">
+          <div class="form-group"><label>First Name</label><input type="text" placeholder="Muhammad"></div>
+          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Ali"></div>
+        </div>
+        <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@company.com"></div>
+        <div class="form-group"><label>Company (Optional)</label><input type="text" placeholder="Your Company Ltd."></div>
+        <div class="form-group"><label>Service Interested In</label>
+          <select><option value="">Select a service...</option><option>Web Development</option><option>Mobile App Development</option><option>AI / Machine Learning</option><option>UI/UX Design</option><option>Software Consulting</option><option>IT Training</option><option>Other</option></select>
+        </div>
+        <div class="form-group"><label>Budget Range</label>
+          <select><option value="">Select budget...</option><option>Under $500</option><option>$500 – $2,000</option><option>$2,000 – $10,000</option><option>$10,000 – $50,000</option><option>$50,000+</option></select>
+        </div>
+        <div class="form-group"><label>Your Message</label><textarea rows="4" placeholder="Tell us about your project, goals, and timeline..."></textarea></div>
+        <button class="btn-primary" style="width:100%" onclick="document.getElementById('success').style.display='block'">Send Message</button>
+        <div class="success-msg" id="success">✓ Message sent! We'll be in touch within 24 hours.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="map-section">
+  <div class="container">
+    <div class="section-label">Our Location</div>
+    <h2 class="section-heading">Find Us in Rawalpindi</h2>
+    <div class="map-mock">
+      <div class="map-grid"></div>
+      <div class="map-pin">
+        <div class="pin">📍</div>
+        <p>TechGzr Private Limited</p>
+        <span id="map-address"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+     <img src="C:\Users\Dell\Downloads\techgzr\files\tehgzr...png" alt="Description of image" style="height: 50px; width: 80px;">
+   <p id="footer-desc"></p></div>
+    <div class="footer-col"><h5>Services</h5><ul><li><a href="services.html">Web Development</a></li><li><a href="services.html">Mobile Apps</a></li><li><a href="services.html">AI & ML</a></li><li><a href="training.html">IT Training</a></li></ul></div>
+    <div class="footer-col"><h5>Company</h5><ul><li><a href="about.html">About Us</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h5>Connect</h5><ul id="social-links"></ul></div>
+  </div>
+  <div class="footer-bottom"><p id="copyright"></p><div class="pk-badge"><span>🇵🇰</span>Proudly built in Pakistan</div></div>
+</footer>
+<script src="data.js"></script>
+<script>
+function getData(){try{const s=localStorage.getItem('techgzr_content');return s?JSON.parse(s):TECHGZR_DEFAULT;}catch(e){return TECHGZR_DEFAULT;}}
+const D=getData();
+document.getElementById('ci-email').textContent=D.company.email;
+document.getElementById('ci-phone').textContent=D.company.phone;
+document.getElementById('ci-address').textContent=D.company.address;
+document.getElementById('map-address').textContent=D.company.address;
+document.getElementById('footer-desc').textContent=D.company.description;
+document.getElementById('copyright').textContent=`© ${new Date().getFullYear()} ${D.company.name} Private Limited. All rights reserved.`;
+const sl=document.getElementById('social-links');
+[['LinkedIn',D.company.linkedin],['Twitter / X',D.company.twitter],['GitHub',D.company.github],['Email Us','mailto:'+D.company.email]].forEach(([l,h])=>{sl.innerHTML+=`<li><a href="${h}">${l}</a></li>`;});
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

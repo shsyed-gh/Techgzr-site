@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechGzr Admin Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --orange:#FF5C1A;--orange-light:#FF8C52;--yellow:#FFD600;
+  --dark:#0A0A0F;--dark2:#111118;--dark3:#18181f;
+  --surface:#1e1e28;--surface2:#252530;
+  --text:#F0EFE8;--muted:#9A99A4;--border:rgba(255,255,255,0.07);
+  --success:#22c55e;--danger:#ef4444;--info:#3b82f6;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
+h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;}
+
+/* LOGIN */
+#login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--dark);position:relative;overflow:hidden;}
+.login-orb{position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(255,92,26,0.12) 0%,transparent 70%);border-radius:50%;pointer-events:none;}
+.login-orb1{top:-100px;left:-100px;}
+.login-orb2{bottom:-100px;right:-100px;background:radial-gradient(circle,rgba(255,214,0,0.07) 0%,transparent 70%);}
+.login-box{background:var(--dark3);border:1px solid var(--border);border-radius:20px;padding:50px 44px;width:100%;max-width:420px;position:relative;z-index:1;}
+.login-logo{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;margin-bottom:6px;text-align:center;}
+.login-logo span{color:var(--orange);}
+.login-sub{text-align:center;font-size:14px;color:var(--muted);margin-bottom:36px;}
+.login-field{margin-bottom:16px;}
+.login-field label{display:block;font-size:13px;font-weight:500;color:var(--muted);margin-bottom:6px;}
+.login-field input{width:100%;background:var(--dark2);border:1px solid var(--border);border-radius:8px;padding:13px 16px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;outline:none;transition:border-color 0.2s;}
+.login-field input:focus{border-color:rgba(255,92,26,0.5);}
+.login-btn{width:100%;background:var(--orange);color:#fff;border:none;padding:14px;border-radius:8px;font-family:'Syne',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:background 0.2s;margin-top:8px;}
+.login-btn:hover{background:var(--orange-light);}
+.login-err{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:8px;padding:10px 14px;font-size:13px;color:#f87171;margin-top:12px;display:none;}
+
+/* ADMIN LAYOUT */
+#admin-app{display:none;min-height:100vh;display:flex;}
+.sidebar{width:240px;background:var(--dark2);border-right:1px solid var(--border);flex-shrink:0;display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;}
+.sidebar-logo{padding:24px 20px 20px;border-bottom:1px solid var(--border);}
+.sidebar-logo .brand{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;}
+.sidebar-logo .brand span{color:var(--orange);}
+.sidebar-logo small{font-size:11px;color:var(--muted);display:block;margin-top:2px;letter-spacing:1px;text-transform:uppercase;}
+.sidebar-nav{flex:1;padding:16px 12px;overflow-y:auto;}
+.nav-section{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:12px 8px 8px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;cursor:pointer;transition:all 0.15s;font-size:14px;font-weight:500;color:var(--muted);margin-bottom:2px;}
+.nav-item:hover{background:rgba(255,255,255,0.05);color:var(--text);}
+.nav-item.active{background:rgba(255,92,26,0.12);color:var(--orange);}
+.nav-item .icon{font-size:16px;width:20px;text-align:center;}
+.sidebar-footer{padding:16px 12px;border-top:1px solid var(--border);}
+.user-info{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;background:rgba(255,255,255,0.03);}
+.user-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--yellow));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;}
+.user-name{font-size:13px;font-weight:600;}
+.user-role{font-size:11px;color:var(--muted);}
+.logout-btn{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;cursor:pointer;color:var(--muted);font-size:13px;margin-top:6px;transition:color 0.15s;}
+.logout-btn:hover{color:var(--danger);}
+
+/* MAIN */
+.main-area{margin-left:240px;flex:1;min-height:100vh;display:flex;flex-direction:column;}
+.topbar{padding:16px 32px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--dark2);position:sticky;top:0;z-index:50;}
+.topbar h1{font-size:20px;font-weight:700;}
+.topbar-actions{display:flex;gap:10px;align-items:center;}
+.save-btn{background:var(--orange);color:#fff;border:none;padding:9px 22px;border-radius:7px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:7px;}
+.save-btn:hover{background:var(--orange-light);}
+.preview-btn{background:transparent;color:var(--muted);border:1px solid var(--border);padding:9px 18px;border-radius:7px;font-family:'Syne',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:6px;}
+.preview-btn:hover{color:var(--text);border-color:rgba(255,255,255,0.2);}
+.content{padding:32px;flex:1;overflow-y:auto;}
+
+/* PANELS */
+.panel{display:none;}
+.panel.active{display:block;}
+
+/* DASHBOARD */
+.dash-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px;}
+.dash-stat{background:var(--dark3);border:1px solid var(--border);border-radius:12px;padding:20px;}
+.dash-stat .num{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--orange);}
+.dash-stat .lbl{font-size:12px;color:var(--muted);margin-top:4px;}
+.dash-pages{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px;}
+.page-link-card{background:var(--dark3);border:1px solid var(--border);border-radius:12px;padding:22px;transition:all 0.2s;cursor:pointer;}
+.page-link-card:hover{border-color:rgba(255,92,26,0.3);}
+.page-link-card .p-icon{font-size:24px;margin-bottom:10px;}
+.page-link-card h4{font-size:15px;font-weight:700;margin-bottom:4px;}
+.page-link-card p{font-size:12px;color:var(--muted);}
+.recent-changes{background:var(--dark3);border:1px solid var(--border);border-radius:12px;padding:24px;}
+.recent-changes h3{font-size:16px;font-weight:700;margin-bottom:16px;}
+.change-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+.change-item:last-child{border-bottom:none;}
+.change-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0;}
+.change-text{font-size:13px;color:var(--muted);}
+.change-time{font-size:11px;color:var(--muted);margin-left:auto;}
+
+/* FORM ELEMENTS */
+.edit-section{background:var(--dark3);border:1px solid var(--border);border-radius:14px;padding:28px;margin-bottom:20px;}
+.edit-section-title{font-size:15px;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+.edit-section-title .icon{font-size:18px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.field-group{margin-bottom:16px;}
+.field-group label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;letter-spacing:0.5px;text-transform:uppercase;}
+.field-group input,.field-group textarea,.field-group select{width:100%;background:var(--dark2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s;resize:vertical;}
+.field-group input:focus,.field-group textarea:focus{border-color:rgba(255,92,26,0.5);}
+
+/* LIST EDITORS */
+.list-editor{margin-top:8px;}
+.list-item{background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;position:relative;}
+.list-item-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.list-item-header h4{font-size:14px;font-weight:700;}
+.del-btn{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#f87171;border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;transition:all 0.15s;}
+.del-btn:hover{background:rgba(239,68,68,0.2);}
+.add-btn{background:rgba(255,92,26,0.1);border:1px solid rgba(255,92,26,0.2);color:var(--orange);border-radius:8px;padding:10px 18px;font-size:13px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;transition:all 0.15s;display:flex;align-items:center;gap:6px;margin-top:12px;}
+.add-btn:hover{background:rgba(255,92,26,0.18);}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 20px;font-size:14px;display:flex;align-items:center;gap:10px;z-index:9999;transform:translateY(80px);opacity:0;transition:all 0.3s;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast.success{border-color:rgba(34,197,94,0.3);color:var(--success);}
+.toast.error{border-color:rgba(239,68,68,0.3);color:var(--danger);}
+
+/* SETTINGS */
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+
+@media(max-width:900px){
+  .sidebar{transform:translateX(-240px);}
+  .main-area{margin-left:0;}
+  .dash-stats,.dash-pages,.settings-grid,.field-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-orb login-orb1"></div>
+  <div class="login-orb login-orb2"></div>
+  <div class="login-box">
+    <div class="login-logo">Tech<span>Gzr</span></div>
+    <div class="login-sub">Admin Portal — Sign in to continue</div>
+    <div class="login-field"><label>Username</label><input type="text" id="uname" placeholder="admin" autocomplete="username"></div>
+    <div class="login-field"><label>Password</label><input type="password" id="upass" placeholder="••••••••" autocomplete="current-password"></div>
+    <button class="login-btn" onclick="doLogin()">Sign In</button>
+    <div class="login-err" id="login-err">Invalid credentials. Try admin / techgzr2025</div>
+    <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:16px;">Default: admin / techgzr2025</p>
+  </div>
+</div>
+
+<!-- ADMIN APP -->
+<div id="admin-app" style="display:none;">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <div class="brand">Tech<span>Gzr</span></div>
+      <small>Content Manager</small>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Overview</div>
+      <div class="nav-item active" onclick="showPanel('dashboard')"><span class="icon">📊</span>Dashboard</div>
+      <div class="nav-section">Content</div>
+      <div class="nav-item" onclick="showPanel('company')"><span class="icon">🏢</span>Company Info</div>
+      <div class="nav-item" onclick="showPanel('hero')"><span class="icon">🏠</span>Hero Section</div>
+      <div class="nav-item" onclick="showPanel('services')"><span class="icon">⚙️</span>Services</div>
+      <div class="nav-item" onclick="showPanel('why')"><span class="icon">💡</span>Why Us</div>
+      <div class="nav-item" onclick="showPanel('process')"><span class="icon">🔄</span>Process Steps</div>
+      <div class="nav-item" onclick="showPanel('training')"><span class="icon">🎓</span>IT Trainings</div>
+      <div class="nav-item" onclick="showPanel('testimonials')"><span class="icon">💬</span>Testimonials</div>
+      <div class="nav-item" onclick="showPanel('about')"><span class="icon">📖</span>About Page</div>
+      <div class="nav-item" onclick="showPanel('cta')"><span class="icon">📣</span>CTA Section</div>
+      <div class="nav-section">System</div>
+      <div class="nav-item" onclick="showPanel('settings')"><span class="icon">🔧</span>Settings</div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar">CEO</div>
+        <div><div class="user-name">Admin</div><div class="user-role">Super Admin</div></div>
+      </div>
+      <div class="logout-btn" onclick="doLogout()"><span>🚪</span>Sign Out</div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main-area">
+    <div class="topbar">
+      <h1 id="topbar-title">Dashboard</h1>
+      <div class="topbar-actions">
+        <a href="index.html" target="_blank" class="preview-btn">👁 Preview Site</a>
+        <button class="save-btn" onclick="saveAll()">💾 Save Changes</button>
+      </div>
+    </div>
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <div class="panel active" id="panel-dashboard">
+        <div class="dash-stats">
+          <div class="dash-stat"><div class="num">6</div><div class="lbl">Pages</div></div>
+          <div class="dash-stat"><div class="num" id="d-services">6</div><div class="lbl">Services</div></div>
+          <div class="dash-stat"><div class="num" id="d-training">4</div><div class="lbl">Training Courses</div></div>
+          <div class="dash-stat"><div class="num" id="d-testimonials">3</div><div class="lbl">Testimonials</div></div>
+        </div>
+        <h3 style="font-size:16px;margin-bottom:16px;color:var(--muted);font-family:'DM Sans',sans-serif;font-weight:500;">Website Pages</h3>
+        <div class="dash-pages">
+          <div class="page-link-card" onclick="window.open('index.html','_blank')"><div class="p-icon">🏠</div><h4>Home</h4><p>index.html — Hero, services, testimonials</p></div>
+          <div class="page-link-card" onclick="window.open('about.html','_blank')"><div class="p-icon">📖</div><h4>About</h4><p>about.html — Story, mission, values</p></div>
+          <div class="page-link-card" onclick="window.open('services.html','_blank')"><div class="p-icon">⚙️</div><h4>Services</h4><p>services.html — All 6 service cards + FAQ</p></div>
+          <div class="page-link-card" onclick="window.open('training.html','_blank')"><div class="p-icon">🎓</div><h4>Training</h4><p>training.html — Courses + enrollment form</p></div>
+          <div class="page-link-card" onclick="window.open('portfolio.html','_blank')"><div class="p-icon">🖼</div><h4>Portfolio</h4><p>portfolio.html — Projects + clients</p></div>
+          <div class="page-link-card" onclick="window.open('contact.html','_blank')"><div class="p-icon">📬</div><h4>Contact</h4><p>contact.html — Contact form + info</p></div>
+        </div>
+        <div class="recent-changes">
+          <h3>Quick Help</h3>
+          <div class="change-item"><div class="change-dot"></div><div class="change-text">Edit any section using the sidebar navigation</div></div>
+          <div class="change-item"><div class="change-dot"></div><div class="change-text">Click "Save Changes" to apply updates to all pages</div></div>
+          <div class="change-item"><div class="change-dot" style="background:var(--success)"></div><div class="change-text">Use "Preview Site" to open the homepage in a new tab</div></div>
+          <div class="change-item"><div class="change-dot" style="background:var(--info)"></div><div class="change-text">All content is stored in your browser's localStorage</div></div>
+          <div class="change-item"><div class="change-dot" style="background:var(--yellow)"></div><div class="change-text">Use Settings → Export to backup or transfer your content</div></div>
+        </div>
+      </div>
+
+      <!-- COMPANY INFO -->
+      <div class="panel" id="panel-company">
+        <div class="edit-section">
+          <div class="edit-section-title"><span class="icon">🏢</span>Company Information</div>
+          <div class="field-row">
+            <div class="field-group"><label>Company Name</label><input type="text" id="c-name" placeholder="TechGzr"></div>
+            <div class="field-group"><label>Tagline</label><input type="text" id="c-tagline"></div>
+          </div>
+          <div class="field-group"><label>Description (Footer & Meta)</label><textarea id="c-desc" rows="3"></textarea></div>
+          <div class="field-row">
+            <div class="field-group"><label>Email Address</label><input type="email" id="c-email"></div>
+            <div class="field-group"><label>Phone / WhatsApp</label><input type="text" id="c-phone"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-group"><label>Office Address</label><input type="text" id="c-address"></div>
+            <div class="field-group"><label>Founded Year</label><input type="text" id="c-founded"></div>
+          </div>
+        </div>
+        <div class="edit-section">
+          <div class="edit-section-title"><span class="icon">🌐</span>Social Media Links</div>
+          <div class="field-row">
+            <div class="field-group"><label>LinkedIn URL</label><input type="text" id="c-linkedin"></div>
+            <div class="field-group"><label>Twitter / X URL</label><input type="text" id="c-twitter"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-group"><label>GitHub URL</label><input type="text" id="c-github"></div>
+            <div class="field-group"><label>Instagram URL</label><input type="text" id="c-instagram"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HERO -->
+      <div class="panel" id="panel-hero">
+        <div class="edit-section">
+          <div class="edit-section-title"><span class="icon">🏠</span>Hero Section</div>
+          <div class="field-group"><label>Badge Text</label><input type="text" id="h-badge"></div>
+          <div class="field-row">
+            <div class="field-group"><label>Headline Line 1</label><input type="text" id="h-line1"></div>
+            <div class="field-group"><label>Headline Highlight Word</label><input type="text" id="h-line2"></div>
+          </div>
+          <div class="field-group"><label>Sub-headline (smaller line)</label><input type="text" id="h-line3"></div>
+          <div class="field-group"><label>Description Paragraph</label><textarea id="h-desc" rows="3"></textarea></div>
+          <div class="field-row">
+            <div class="field-group"><label>Primary Button Text</label><input type="text" id="h-cta1"></div>
+            <div class="field-group"><label>Secondary Button Text</label><input type="text" id="h-cta2"></div>
+          </div>
+        </div>
+        <div class="edit-section">
+          <div class="edit-section-title"><span class="icon">📊</span>Stats Bar</div>
+          <div class="field-row">
+            <div class="field-group"><label>Stat 1 Number</label><input type="text" id="h-s1n"></div>
+            <div class="field-group"><label>Stat 1 Label</label><input type="text" id="h-s1l"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-group"><label>Stat 2 Number</label><input type="text" id="h-s2n"></div>
+            <div class="field-group"><label>Stat 2 Label</label><input type="text" id="h-s2l"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-group"><label>Stat 3 Number</label><input type="text" id="h-s3n"></div>
+            <div class="field-group"><label>Stat 3 Label</label><input type="text" id="h-s3l"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SERVICES -->
+      <div class="panel" id="panel-services">
+        <div class="edit-section">
+          <div class="edit-section-title"><span class="icon">⚙️</span>Services</div>
+          <div class="list-editor" id="services-editor"></div>
+          <button class="add-btn" onclick="addService()">+ Add Service</button>
+        </div>
+      </div>
+
+      <!-- WHY US -->
+      <div class="panel" id="panel-why">
+        <div class="edit-section">
+          <div class="edit-section-title"><span class="icon">💡</span>Why TechGzr — Feature Points</div>
+          <div class="list-editor" id="why-editor"></div>
+          <button class="add-btn" onclick="addWhy()">+ Add Point</button>
+        </div>
+      </div>
+
+      <!-- PROCESS -->
+      <div class="panel" id="panel-process">
+        <div class="edit-section">
+          <div class="edit-section-title"><span class="icon">🔄</span>Process Steps</div>
+          <div class="list-editor" id="process-editor"></div>
+          <button class="add-btn" onclick="addProcess()">+ Add Step</button>
+        </div>
+      </div>
+
+      <!-- TRAINING -->
+      <div class="panel" id="panel-training">
+        <div class="edit-section">
+          <div class="edit-section-title"><span class="icon">🎓</span>Training Courses</div>
+          <div class="list-editor" id="training-editor"></div>
+          <button class="add-btn" onclick="addTraining()">+ Add Course</button>
+        </div>
+      </div>
+
+      <!-- TESTIMONIALS -->
+      <div class="panel" id="panel-testimonials">
+        <div class="edit-section">
+          <div class="edit-section-title"><span class="icon">💬</span>Client Testimonials</div>
+          <div class="list-editor" id="testimonials-editor"></div>
+          <button class="add-btn" onclick="addTestimonial()">+ Add Testimonial</button>
+        </div>
+      </div>
+
+      <!-- ABOUT -->
+      <div class="panel" id="panel-about">
+        <div class="edit-section">
+          <div class="edit-section-title"><span class="icon">📖</span>About Page Content</div>
+          <div class="field-group"><label>Our Story (Full Text)</label><textarea id="a-story" rows="6"></textarea></div>
+          <div class="field-group"><label>Mission Statement</label><textarea id="a-mission" rows="3"></textarea></div>
+          <div class="field-group"><label>Vision Statement</label><textarea id="a-vision" rows="3"></textarea></div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="panel" id="panel-cta">
+        <div class="edit-section">
+          <div class="edit-section-title"><span class="icon">📣</span>Call-to-Action Section</div>
+          <div class="field-row">
+            <div class="field-group"><label>Heading Line 1</label><input type="text" id="cta-h1"></div>
+            <div class="field-group"><label>Heading Line 2 (Orange)</label><input type="text" id="cta-h2"></div>
+          </div>
+          <div class="field-group"><label>Subtext</label><textarea id="cta-sub" rows="2"></textarea></div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="panel" id="panel-settings">
+        <div class="edit-section">
+          <div class="edit-section-title"><span class="icon">🔧</span>Data Management</div>
+          <p style="font-size:14px;color:var(--muted);margin-bottom:20px;">Export your content as JSON to back it up or transfer to another device. Import to restore.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <button class="add-btn" onclick="exportData()">📤 Export Content JSON</button>
+            <button class="add-btn" onclick="document.getElementById('import-file').click()">📥 Import Content JSON</button>
+            <button class="add-btn" style="color:var(--danger);border-color:rgba(239,68,68,0.3);background:rgba(239,68,68,0.08);" onclick="resetData()">🗑 Reset to Defaults</button>
+          </div>
+          <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)">
+        </div>
+        <div class="edit-section">
+          <div class="edit-section-title"><span class="icon">🔑</span>Change Password</div>
+          <div class="field-row">
+            <div class="field-group"><label>New Password</label><input type="password" id="new-pass" placeholder="New password"></div>
+            <div class="field-group"><label>Confirm Password</label><input type="password" id="conf-pass" placeholder="Confirm password"></div>
+          </div>
+          <button class="save-btn" onclick="changePass()">Update Password</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="data.js"></script>
+<script>
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let D = {};
+let isLoggedIn = false;
+
+function getData(){
+  try{const s=localStorage.getItem('techgzr_content');return s?JSON.parse(s):JSON.parse(JSON.stringify(TECHGZR_DEFAULT));}
+  catch(e){return JSON.parse(JSON.stringify(TECHGZR_DEFAULT));}
+}
+
+// ─── AUTH ─────────────────────────────────────────────────────────────────────
+function doLogin(){
+  const u=document.getElementById('uname').value.trim();
+  const p=document.getElementById('upass').value;
+  const storedPass=localStorage.getItem('techgzr_admin_pass')||'techgzr2025';
+  if(u==='admin'&&p===storedPass){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('admin-app').style.display='flex';
+    isLoggedIn=true;
+    D=getData();
+    populateAll();
+    updateDashStats();
+  } else {
+    document.getElementById('login-err').style.display='block';
+  }
+}
+
+document.querySelectorAll('#uname,#upass').forEach(el=>el.addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();}));
+
+function doLogout(){
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('admin-app').style.display='none';
+  document.getElementById('upass').value='';
+  isLoggedIn=false;
+}
+
+// ─── NAVIGATION ───────────────────────────────────────────────────────────────
+function showPanel(name){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>{if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes("'"+name+"'"))n.classList.add('active');});
+  const titles={dashboard:'Dashboard',company:'Company Info',hero:'Hero Section',services:'Services',why:'Why Us',process:'Process Steps',training:'IT Trainings',testimonials:'Testimonials',about:'About Page',cta:'CTA Section',settings:'Settings'};
+  document.getElementById('topbar-title').textContent=titles[name]||name;
+}
+
+// ─── POPULATE ─────────────────────────────────────────────────────────────────
+function populateAll(){
+  // Company
+  setVal('c-name',D.company.name);setVal('c-tagline',D.company.tagline);setVal('c-desc',D.company.description);
+  setVal('c-email',D.company.email);setVal('c-phone',D.company.phone);setVal('c-address',D.company.address);
+  setVal('c-founded',D.company.founded);setVal('c-linkedin',D.company.linkedin);setVal('c-twitter',D.company.twitter);
+  setVal('c-github',D.company.github);setVal('c-instagram',D.company.instagram);
+  // Hero
+  setVal('h-badge',D.hero.badge);setVal('h-line1',D.hero.headline1);setVal('h-line2',D.hero.headline2);
+  setVal('h-line3',D.hero.headline3);setVal('h-desc',D.hero.description);setVal('h-cta1',D.hero.cta_primary);
+  setVal('h-cta2',D.hero.cta_secondary);setVal('h-s1n',D.hero.stat1_num);setVal('h-s1l',D.hero.stat1_label);
+  setVal('h-s2n',D.hero.stat2_num);setVal('h-s2l',D.hero.stat2_label);setVal('h-s3n',D.hero.stat3_num);setVal('h-s3l',D.hero.stat3_label);
+  // About
+  setVal('a-story',D.about.story);setVal('a-mission',D.about.mission);setVal('a-vision',D.about.vision);
+  // CTA
+  setVal('cta-h1',D.cta.heading1);setVal('cta-h2',D.cta.heading2);setVal('cta-sub',D.cta.subtext);
+  // List editors
+  renderServices();renderWhy();renderProcess();renderTraining();renderTestimonials();
+}
+
+function setVal(id,val){const el=document.getElementById(id);if(el)el.value=val||'';}
+
+// ─── SERVICES EDITOR ──────────────────────────────────────────────────────────
+function renderServices(){
+  const ed=document.getElementById('services-editor');ed.innerHTML='';
+  D.services.forEach((s,i)=>{
+    ed.innerHTML+=`<div class="list-item" id="svc-${i}">
+      <div class="list-item-header"><h4>Service ${i+1}: ${s.title}</h4><button class="del-btn" onclick="delService(${i})">Delete</button></div>
+      <div class="field-row">
+        <div class="field-group"><label>Icon (Emoji)</label><input oninput="D.services[${i}].icon=this.value" value="${s.icon}"></div>
+        <div class="field-group"><label>Title</label><input oninput="D.services[${i}].title=this.value;this.closest('.list-item').querySelector('h4').textContent='Service ${i+1}: '+this.value" value="${s.title}"></div>
+      </div>
+      <div class="field-group"><label>Short Description</label><textarea rows="2" oninput="D.services[${i}].description=this.value">${s.description}</textarea></div>
+      <div class="field-group"><label>Detailed Description (Services page)</label><textarea rows="2" oninput="D.services[${i}].detail=this.value">${s.detail||''}</textarea></div>
+    </div>`;
+  });
+}
+function delService(i){if(confirm('Delete this service?')){D.services.splice(i,1);renderServices();}}
+function addService(){D.services.push({id:Date.now(),icon:'🔧',title:'New Service',description:'Service description',detail:''});renderServices();}
+
+// ─── WHY EDITOR ───────────────────────────────────────────────────────────────
+function renderWhy(){
+  const ed=document.getElementById('why-editor');ed.innerHTML='';
+  D.why.forEach((w,i)=>{
+    ed.innerHTML+=`<div class="list-item">
+      <div class="list-item-header"><h4>${w.title}</h4><button class="del-btn" onclick="delWhy(${i})">Delete</button></div>
+      <div class="field-row">
+        <div class="field-group"><label>Icon (Emoji)</label><input oninput="D.why[${i}].icon=this.value" value="${w.icon}"></div>
+        <div class="field-group"><label>Title</label><input oninput="D.why[${i}].title=this.value;this.closest('.list-item').querySelector('h4').textContent=this.value" value="${w.title}"></div>
+      </div>
+      <div class="field-group"><label>Description</label><textarea rows="2" oninput="D.why[${i}].description=this.value">${w.description}</textarea></div>
+    </div>`;
+  });
+}
+function delWhy(i){if(confirm('Delete?')){D.why.splice(i,1);renderWhy();}}
+function addWhy(){D.why.push({icon:'✨',title:'New Point',description:'Description'});renderWhy();}
+
+// ─── PROCESS EDITOR ───────────────────────────────────────────────────────────
+function renderProcess(){
+  const ed=document.getElementById('process-editor');ed.innerHTML='';
+  D.process.forEach((p,i)=>{
+    ed.innerHTML+=`<div class="list-item">
+      <div class="list-item-header"><h4>Step ${p.num}: ${p.title}</h4><button class="del-btn" onclick="delProcess(${i})">Delete</button></div>
+      <div class="field-row">
+        <div class="field-group"><label>Step Number</label><input oninput="D.process[${i}].num=this.value" value="${p.num}"></div>
+        <div class="field-group"><label>Title</label><input oninput="D.process[${i}].title=this.value" value="${p.title}"></div>
+      </div>
+      <div class="field-group"><label>Description</label><textarea rows="2" oninput="D.process[${i}].description=this.value">${p.description}</textarea></div>
+    </div>`;
+  });
+}
+function delProcess(i){if(confirm('Delete?')){D.process.splice(i,1);renderProcess();}}
+function addProcess(){const n=D.process.length+1;D.process.push({num:'0'+n,title:'New Step',description:'Description'});renderProcess();}
+
+// ─── TRAINING EDITOR ──────────────────────────────────────────────────────────
+function renderTraining(){
+  const ed=document.getElementById('training-editor');ed.innerHTML='';
+  D.training.forEach((c,i)=>{
+    ed.innerHTML+=`<div class="list-item">
+      <div class="list-item-header"><h4>${c.title}</h4><button class="del-btn" onclick="delTraining(${i})">Delete</button></div>
+      <div class="field-row">
+        <div class="field-group"><label>Tag / Badge</label><input oninput="D.training[${i}].tag=this.value" value="${c.tag}"></div>
+        <div class="field-group"><label>Course Title</label><input oninput="D.training[${i}].title=this.value;this.closest('.list-item').querySelector('h4').textContent=this.value" value="${c.title}"></div>
+      </div>
+      <div class="field-group"><label>Description</label><textarea rows="2" oninput="D.training[${i}].description=this.value">${c.description}</textarea></div>
+      <div class="field-row">
+        <div class="field-group"><label>Duration</label><input oninput="D.training[${i}].duration=this.value" value="${c.duration||''}"></div>
+        <div class="field-group"><label>Level</label><input oninput="D.training[${i}].level=this.value" value="${c.level||''}"></div>
+      </div>
+    </div>`;
+  });
+}
+function delTraining(i){if(confirm('Delete?')){D.training.splice(i,1);renderTraining();}}
+function addTraining(){D.training.push({tag:'New',title:'New Course',description:'Course description',duration:'8 Weeks',level:'All Levels'});renderTraining();}
+
+// ─── TESTIMONIALS EDITOR ──────────────────────────────────────────────────────
+function renderTestimonials(){
+  const ed=document.getElementById('testimonials-editor');ed.innerHTML='';
+  D.testimonials.forEach((t,i)=>{
+    ed.innerHTML+=`<div class="list-item">
+      <div class="list-item-header"><h4>${t.name}</h4><button class="del-btn" onclick="delTestimonial(${i})">Delete</button></div>
+      <div class="field-group"><label>Testimonial Text</label><textarea rows="3" oninput="D.testimonials[${i}].text=this.value">${t.text}</textarea></div>
+      <div class="field-row">
+        <div class="field-group"><label>Client Name</label><input oninput="D.testimonials[${i}].name=this.value;this.closest('.list-item').querySelector('h4').textContent=this.value" value="${t.name}"></div>
+        <div class="field-group"><label>Role & Company</label><input oninput="D.testimonials[${i}].role=this.value" value="${t.role}"></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group"><label>Initials (for Avatar)</label><input oninput="D.testimonials[${i}].initials=this.value" value="${t.initials}"></div>
+        <div class="field-group"><label>Stars (1–5)</label><input type="number" min="1" max="5" oninput="D.testimonials[${i}].stars=parseInt(this.value)" value="${t.stars}"></div>
+      </div>
+    </div>`;
+  });
+}
+function delTestimonial(i){if(confirm('Delete?')){D.testimonials.splice(i,1);renderTestimonials();}}
+function addTestimonial(){D.testimonials.push({stars:5,text:'Your review here.',name:'Client Name',role:'Role, Company',initials:'CL'});renderTestimonials();}
+
+// ─── COLLECT & SAVE ───────────────────────────────────────────────────────────
+function collectFromFields(){
+  D.company.name=document.getElementById('c-name').value;
+  D.company.tagline=document.getElementById('c-tagline').value;
+  D.company.description=document.getElementById('c-desc').value;
+  D.company.email=document.getElementById('c-email').value;
+  D.company.phone=document.getElementById('c-phone').value;
+  D.company.address=document.getElementById('c-address').value;
+  D.company.founded=document.getElementById('c-founded').value;
+  D.company.linkedin=document.getElementById('c-linkedin').value;
+  D.company.twitter=document.getElementById('c-twitter').value;
+  D.company.github=document.getElementById('c-github').value;
+  D.company.instagram=document.getElementById('c-instagram').value;
+  D.hero.badge=document.getElementById('h-badge').value;
+  D.hero.headline1=document.getElementById('h-line1').value;
+  D.hero.headline2=document.getElementById('h-line2').value;
+  D.hero.headline3=document.getElementById('h-line3').value;
+  D.hero.description=document.getElementById('h-desc').value;
+  D.hero.cta_primary=document.getElementById('h-cta1').value;
+  D.hero.cta_secondary=document.getElementById('h-cta2').value;
+  D.hero.stat1_num=document.getElementById('h-s1n').value;
+  D.hero.stat1_label=document.getElementById('h-s1l').value;
+  D.hero.stat2_num=document.getElementById('h-s2n').value;
+  D.hero.stat2_label=document.getElementById('h-s2l').value;
+  D.hero.stat3_num=document.getElementById('h-s3n').value;
+  D.hero.stat3_label=document.getElementById('h-s3l').value;
+  D.about.story=document.getElementById('a-story').value;
+  D.about.mission=document.getElementById('a-mission').value;
+  D.about.vision=document.getElementById('a-vision').value;
+  D.cta.heading1=document.getElementById('cta-h1').value;
+  D.cta.heading2=document.getElementById('cta-h2').value;
+  D.cta.subtext=document.getElementById('cta-sub').value;
+}
+
+function saveAll(){
+  collectFromFields();
+  localStorage.setItem('techgzr_content',JSON.stringify(D));
+  updateDashStats();
+  showToast('✓ All changes saved successfully!','success');
+}
+
+function updateDashStats(){
+  document.getElementById('d-services').textContent=D.services.length;
+  document.getElementById('d-training').textContent=D.training.length;
+  document.getElementById('d-testimonials').textContent=D.testimonials.length;
+}
+
+// ─── SETTINGS ─────────────────────────────────────────────────────────────────
+function exportData(){
+  collectFromFields();
+  const blob=new Blob([JSON.stringify(D,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='techgzr-content.json';a.click();
+  showToast('Content exported!','success');
+}
+
+function importData(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(ev){
+    try{D=JSON.parse(ev.target.result);localStorage.setItem('techgzr_content',JSON.stringify(D));populateAll();showToast('Content imported!','success');}
+    catch(err){showToast('Invalid JSON file.','error');}
+  };
+  reader.readAsText(file);
+}
+
+function resetData(){
+  if(confirm('Reset ALL content to defaults? This cannot be undone.')){
+    D=JSON.parse(JSON.stringify(TECHGZR_DEFAULT));
+    localStorage.removeItem('techgzr_content');
+    populateAll();
+    showToast('Content reset to defaults.','success');
+  }
+}
+
+function changePass(){
+  const np=document.getElementById('new-pass').value;
+  const cp=document.getElementById('conf-pass').value;
+  if(!np){showToast('Enter a new password.','error');return;}
+  if(np!==cp){showToast('Passwords do not match.','error');return;}
+  localStorage.setItem('techgzr_admin_pass',np);
+  document.getElementById('new-pass').value='';
+  document.getElementById('conf-pass').value='';
+  showToast('Password updated!','success');
+}
+
+// ─── TOAST ────────────────────────────────────────────────────────────────────
+function showToast(msg,type='success'){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast '+type;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// Auto-login check
+window.addEventListener('DOMContentLoaded',()=>{
+  // check if already "logged in" this session
+  if(sessionStorage.getItem('tg_auth')==='1'){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('admin-app').style.display='flex';
+    D=getData();populateAll();updateDashStats();
+  }
+});
+
+const _doLogin=doLogin;
+window.doLogin=function(){_doLogin();if(isLoggedIn)sessionStorage.setItem('tg_auth','1');};
+window.doLogout=function(){doLogout();sessionStorage.removeItem('tg_auth');};
+</script>
+</body>
+</html>

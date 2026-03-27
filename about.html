@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About | TechGzr Private Limited</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start;margin-top:70px;}
+.about-story p{font-size:16px;color:var(--muted);line-height:1.8;margin-bottom:20px;font-weight:300;}
+.mv-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px;}
+.mv-card{background:var(--dark3);border:1px solid var(--border);border-radius:14px;padding:28px;}
+.mv-card .icon{font-size:28px;margin-bottom:14px;}
+.mv-card h4{font-size:16px;font-weight:700;margin-bottom:10px;}
+.mv-card p{font-size:14px;color:var(--muted);line-height:1.6;}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:60px;}
+.value-card{background:var(--dark3);border:1px solid var(--border);border-radius:14px;padding:28px;text-align:center;}
+.value-card .v-icon{font-size:32px;margin-bottom:16px;}
+.value-card h4{font-size:16px;font-weight:700;margin-bottom:10px;}
+.value-card p{font-size:14px;color:var(--muted);line-height:1.6;}
+.team-section{background:var(--dark2);}
+.team-intro{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-bottom:60px;}
+.team-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.team-stat{background:var(--dark3);border:1px solid var(--border);border-radius:12px;padding:24px;text-align:center;}
+.team-stat .num{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:var(--orange);}
+.team-stat .lbl{font-size:13px;color:var(--muted);margin-top:4px;}
+.ceo-card{background:linear-gradient(135deg,rgba(255,92,26,0.1),rgba(255,214,0,0.05));border:1px solid rgba(255,92,26,0.2);border-radius:20px;padding:40px;display:flex;gap:30px;align-items:flex-start;margin-top:60px;}
+.ceo-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--yellow));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:#fff;flex-shrink:0;}
+.ceo-card blockquote{font-size:17px;line-height:1.7;color:var(--text);font-style:italic;margin-bottom:16px;font-weight:300;}
+.ceo-card h5{font-size:15px;font-weight:700;}
+.ceo-card span{font-size:13px;color:var(--muted);}
+@media(max-width:900px){.about-grid,.mv-grid,.team-intro,.values-grid{grid-template-columns:1fr;}.team-stats{grid-template-columns:1fr 1fr;}.ceo-card{flex-direction:column;}}
+</style>
+</head>
+<body>
+<nav>
+  <img src="C:\Users\Dell\Downloads\techgzr\files\tehgzr...png" alt="Description of image" style="height: 50px; width: 80px;">
+  
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="training.html">Training</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Get a Quote</a>
+</nav>
+
+<div class="page-hero" style="background:var(--dark);">
+  <div class="page-hero-bg"></div><div class="page-hero-orb"></div>
+  <div class="container">
+    <div class="section-label">Our Story</div>
+    <h1>We Build Technology<br>That <span style="color:var(--orange)">Matters</span></h1>
+    <p id="about-story-short"></p>
+  </div>
+</div>
+
+<section style="background:var(--dark);">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-story">
+        <div class="section-label">Our Journey</div>
+        <h2 class="section-heading">From Rawalpindi to<br>the World</h2>
+        <p id="about-story-full"></p>
+        <a href="contact.html" class="btn-primary" style="margin-top:12px;">Work With Us</a>
+      </div>
+      <div>
+        <div class="mv-grid">
+          <div class="mv-card reveal">
+            <div class="icon">🎯</div>
+            <h4>Our Mission</h4>
+            <p id="about-mission"></p>
+          </div>
+          <div class="mv-card reveal">
+            <div class="icon">🔭</div>
+            <h4>Our Vision</h4>
+            <p id="about-vision"></p>
+          </div>
+        </div>
+        <div class="ceo-card reveal" style="margin-top:24px;">
+          <div class="ceo-avatar">CEO</div>
+          <div>
+            <blockquote>"We started TechGzr with a simple belief — that Pakistan has the talent to build world-class software. Every project we deliver proves that belief right."</blockquote>
+            <h5>Founder & CEO</h5>
+            <span>TechGzr Private Limited</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--dark2);">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="section-label">What We Stand For</div>
+      <h2 class="section-heading">Our Core Values</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal"><div class="v-icon">🏆</div><h4>Excellence</h4><p>We hold ourselves to the highest technical and professional standards in everything we deliver.</p></div>
+      <div class="value-card reveal"><div class="v-icon">🤝</div><h4>Integrity</h4><p>Honest communication, transparent pricing, and keeping promises — always.</p></div>
+      <div class="value-card reveal"><div class="v-icon">🚀</div><h4>Innovation</h4><p>We continuously explore new technologies so our clients always have a competitive edge.</p></div>
+      <div class="value-card reveal"><div class="v-icon">🌱</div><h4>Growth</h4><p>We invest in our team's learning and in our clients' long-term success, not just short-term gains.</p></div>
+      <div class="value-card reveal"><div class="v-icon">🇵🇰</div><h4>Local Pride</h4><p>We're proud to represent Pakistani tech talent on the global stage and uplift our community.</p></div>
+      <div class="value-card reveal"><div class="v-icon">♾️</div><h4>Ownership</h4><p>We take full responsibility for outcomes. Your success is our success, period.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="team-section">
+  <div class="container">
+    <div class="team-intro">
+      <div>
+        <div class="section-label">The People</div>
+        <h2 class="section-heading">A Team of<br>Builders & Dreamers</h2>
+        <p class="section-sub">Our diverse team spans developers, designers, AI engineers, and strategists — all united by a passion for great software.</p>
+        <a href="contact.html" class="btn-primary" style="margin-top:32px;">Join Our Team</a>
+      </div>
+      <div class="team-stats">
+        <div class="team-stat reveal"><div class="num">20+</div><div class="lbl">Team Members</div></div>
+        <div class="team-stat reveal"><div class="num">5+</div><div class="lbl">Years Experience</div></div>
+        <div class="team-stat reveal"><div class="num">8+</div><div class="lbl">Technologies</div></div>
+        <div class="team-stat reveal"><div class="num">3</div><div class="lbl">Countries Served</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><img src="C:\Users\Dell\Downloads\techgzr\files\tehgzr...png" alt="Description of image" style="height: 50px; width: 80px;"></div>
+    <div class="footer-col"><h5>Services</h5><ul><li><a href="services.html">Web Development</a></li><li><a href="services.html">Mobile Apps</a></li><li><a href="services.html">AI & ML</a></li><li><a href="training.html">IT Training</a></li></ul></div>
+    <div class="footer-col"><h5>Company</h5><ul><li><a href="about.html">About Us</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h5>Connect</h5><ul id="social-links"></ul></div>
+  </div>
+  <div class="footer-bottom"><p id="copyright"></p><div class="pk-badge"><span>🇵🇰</span>Proudly built in Pakistan</div></div>
+</footer>
+<script src="data.js"></script>
+<script>
+function getData(){try{const s=localStorage.getItem('techgzr_content');return s?JSON.parse(s):TECHGZR_DEFAULT;}catch(e){return TECHGZR_DEFAULT;}}
+const D=getData();
+document.getElementById('about-story-short').textContent=D.about.story.substring(0,120)+'...';
+document.getElementById('about-story-full').textContent=D.about.story;
+document.getElementById('about-mission').textContent=D.about.mission;
+document.getElementById('about-vision').textContent=D.about.vision;
+document.getElementById('footer-desc').textContent=D.company.description;
+document.getElementById('copyright').textContent=`© ${new Date().getFullYear()} ${D.company.name} Private Limited. All rights reserved.`;
+const sl=document.getElementById('social-links');
+[['LinkedIn',D.company.linkedin],['Twitter / X',D.company.twitter],['GitHub',D.company.github],['Instagram',D.company.instagram],['Email Us','mailto:'+D.company.email]].forEach(([l,h])=>{sl.innerHTML+=`<li><a href="${h}">${l}</a></li>`;});
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

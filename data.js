@@ -7,11 +7,11 @@ const TECHGZR_DEFAULT = {
   company: {
     name: "TechGzr",
     tagline: "Innovating Pakistan's Digital Future",
-    description: "Pakistan's trusted technology partner. Building world-class software from Rawalpindi for clients across the globe.",
-    email: "hello@techgzr.com",
-    phone: "+92 51 1234567",
-    address: "Rawalpindi, Punjab, Pakistan",
-    founded: "2020",
+    description: "Pakistan's trusted technology partner. Building world-class software from Islamabad for clients across the globe.",
+    email: "shsyed@techgzr.com",
+    phone: "+92 345-9600240",
+    address: "Islamabad, Pakistan",
+    founded: "2023",
     linkedin: "#",
     twitter: "#",
     github: "#",
@@ -21,7 +21,7 @@ const TECHGZR_DEFAULT = {
     badge: "Pakistan's Premier Tech Partner",
     headline1: "Build Digital",
     headline2: "Excellence",
-    headline3: "Powered from Rawalpindi, Delivered Worldwide",
+    headline3: "Powered from Islamabad, Delivered Worldwide",
     description: "From AI-powered platforms to mobile apps and IT training — TechGzr Private Limited engineers future-ready solutions for ambitious businesses.",
     cta_primary: "Start a Project",
     cta_secondary: "Explore Services",
@@ -31,7 +31,7 @@ const TECHGZR_DEFAULT = {
     stat2_label: "Client Satisfaction",
     stat3_num: "6+",
     stat3_label: "Service Domains"
-  },
+  }
   services: [
     { id: 1, icon: "🌐", title: "Web Development", description: "Blazing-fast, scalable web applications built with modern frameworks. From dynamic front-ends to robust back-end architectures and e-commerce platforms.", detail: "We specialize in React, Next.js, Vue, Node.js, Laravel, and Django. Whether you need a landing page, a complex SaaS platform, or a high-traffic e-commerce store, we build it right the first time.", link: "services.html" },
     { id: 2, icon: "📱", title: "Mobile App Development", description: "Native and cross-platform iOS & Android apps that users love. Seamless UX, optimized performance, and App Store-ready deployment.", detail: "Flutter, React Native, Swift, and Kotlin — we pick the right tool for your project. From MVP to enterprise-grade, our apps have served millions of users.", link: "services.html" },

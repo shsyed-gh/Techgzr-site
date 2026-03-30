@@ -10,7 +10,7 @@ const TECHGZR_DEFAULT = {
     description: "Pakistan's trusted technology partner. Building world-class software from Rawalpindi for clients across the globe.",
     email: "hello@techgzr.com",
     phone: "+92 51 1234567",
-    address: "Rawalpindi, Punjab, Pakistan",
+    address: "Islamabad, Pakistan",
     founded: "2020",
     linkedin: "#",
     twitter: "#",

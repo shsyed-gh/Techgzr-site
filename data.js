@@ -7,11 +7,11 @@ const TECHGZR_DEFAULT = {
   company: {
     name: "TechGzr",
     tagline: "Innovating Pakistan's Digital Future",
-    description: "Pakistan's trusted technology partner. Building world-class software from Rawalpindi for clients across the globe.",
-    email: "hello@techgzr.com",
-    phone: "+92 51 1234567",
+    description: "Pakistan's trusted technology partner. Building world-class software from Islamabad for clients across the globe.",
+    email: "shsyed@techgzr.com",
+    phone: "+92 345-9600240",
     address: "Islamabad, Pakistan",
-    founded: "2020",
+    founded: "2023",
     linkedin: "#",
     twitter: "#",
     github: "#",
@@ -21,7 +21,7 @@ const TECHGZR_DEFAULT = {
     badge: "Pakistan's Premier Tech Partner",
     headline1: "Build Digital",
     headline2: "Excellence",
-    headline3: "Powered from Rawalpindi, Delivered Worldwide",
+    headline3: "Powered from Islamabad, Delivered Worldwide",
     description: "From AI-powered platforms to mobile apps and IT training — TechGzr Private Limited engineers future-ready solutions for ambitious businesses.",
     cta_primary: "Start a Project",
     cta_secondary: "Explore Services",
@@ -66,7 +66,7 @@ const TECHGZR_DEFAULT = {
   about: {
     mission: "To empower businesses and individuals through world-class technology solutions and education, built with integrity from Pakistan.",
     vision: "To be South Asia's most trusted technology partner — building software that shapes industries and launches careers.",
-    story: "TechGzr Private Limited was founded with a single belief: that world-class software can be built anywhere. From our offices in Rawalpindi, we've grown from a small consultancy into a full-service technology firm serving clients across Pakistan, the Middle East, Europe, and North America. We combine deep technical expertise with a culture of transparency and relentless execution."
+    story: "TechGzr Private Limited was founded with a single belief: that world-class software can be built anywhere. From our offices in Islamabad, we've grown from a small consultancy into a full-service technology firm serving clients across Pakistan, the Middle East, Europe, and North America. We combine deep technical expertise with a culture of transparency and relentless execution."
   },
   cta: {
     heading1: "Ready to Transform",
